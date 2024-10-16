@@ -102,11 +102,11 @@ def model_data():
 
 
 class TestCarServiceScenarios:
-    def _fill_initial_data(self, service: CarService, card_data: list[Car], model_data: list[Model]) -> None:
+    def _fill_initial_data(self, service: CarService, car_data: list[Car], model_data: list[Model]) -> None:
         for model in model_data:
             service.add_model(model)
 
-        for car in card_data:
+        for car in car_data:
             service.add_car(car)
 
     def test_add_new_car(self, tmpdir: str, card_data: list[Car], model_data: list[Model]) -> None:
