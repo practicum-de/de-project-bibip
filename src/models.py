@@ -25,7 +25,7 @@ class Car(BaseModel):
 
 class Model(BaseModel):
     id: int
-    model_name: str
+    name: str
     brand: str
 
     def index(self) -> str:
@@ -44,8 +44,8 @@ class Sale(BaseModel):
 
 class CarFullInfo(BaseModel):
     vin: str
-    model_name: str
-    model_brand: str
+    car_model_name: str
+    car_model_brand: str
     price: Decimal
     date_start: datetime
     status: CarStatus
@@ -54,6 +54,6 @@ class CarFullInfo(BaseModel):
 
 
 class ModelSaleStats(BaseModel):
-    model_name: str
+    car_model_name: str
     brand: str
     sales_number: int
