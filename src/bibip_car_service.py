@@ -2,6 +2,9 @@ from models import Car, CarFullInfo, CarStatus, Model, ModelSaleStats, Sale
 
 
 class CarService:
+    def __init__(self, root_directory_path: str) -> None:
+        self.root_directory_path = root_directory_path
+
     # Задание 1. Сохранение автомобилей и моделей
     def add_model(self, model: Model) -> Model:
         raise NotImplementedError
