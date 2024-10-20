@@ -93,11 +93,11 @@ def card_data():
 @pytest.fixture
 def model_data():
     return [
-        Model(id=1, model_name="Optima", brand="Kia"),
-        Model(id=2, model_name="Sorento", brand="Kia"),
-        Model(id=3, model_name="3", brand="Mazda"),
-        Model(id=4, model_name="Pathfinder", brand="Nissan"),
-        Model(id=5, model_name="Logan", brand="Renault"),
+        Model(id=1, name="Optima", brand="Kia"),
+        Model(id=2, name="Sorento", brand="Kia"),
+        Model(id=3, name="3", brand="Mazda"),
+        Model(id=4, name="Pathfinder", brand="Nissan"),
+        Model(id=5, name="Logan", brand="Renault"),
     ]
 
 
@@ -149,8 +149,8 @@ class TestCarServiceScenarios:
 
         full_info_no_sale = CarFullInfo(
             vin="KNAGM4A77D5316538",
-            model_name="Optima",
-            model_brand="Kia",
+            car_model_name="Optima",
+            car_model_brand="Kia",
             price=Decimal("2000"),
             date_start=datetime(2024, 2, 8),
             status=CarStatus.available,
@@ -171,8 +171,8 @@ class TestCarServiceScenarios:
 
         full_info_with_sale = CarFullInfo(
             vin="KNAGM4A77D5316538",
-            model_name="Optima",
-            model_brand="Kia",
+            car_model_name="Optima",
+            car_model_brand="Kia",
             price=Decimal("2000"),
             date_start=datetime(2024, 2, 8),
             status=CarStatus.sold,
@@ -187,8 +187,8 @@ class TestCarServiceScenarios:
 
         full_info_no_sale = CarFullInfo(
             vin="KNAGM4A77D5316538",
-            model_name="Optima",
-            model_brand="Kia",
+            car_model_name="Optima",
+            car_model_brand="Kia",
             price=Decimal("2000"),
             date_start=datetime(2024, 2, 8),
             status=CarStatus.available,
@@ -285,8 +285,8 @@ class TestCarServiceScenarios:
             service.sell_car(sale)
 
         top_3_models = [
-            ModelSaleStats(model_name="Optima", brand="Kia", sales_number=3),
-            ModelSaleStats(model_name="3", brand="Mazda", sales_number=2),
-            ModelSaleStats(model_name="Pathfinder", brand="Nissan", sales_number=1),
+            ModelSaleStats(car_model_name="Optima", brand="Kia", sales_number=3),
+            ModelSaleStats(car_model_name="3", brand="Mazda", sales_number=2),
+            ModelSaleStats(car_model_name="Pathfinder", brand="Nissan", sales_number=1),
         ]
         assert service.top_models_by_sales() == top_3_models
