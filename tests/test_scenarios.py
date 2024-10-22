@@ -8,7 +8,7 @@ from models import Car, CarFullInfo, CarStatus, Model, ModelSaleStats, Sale
 
 
 @pytest.fixture
-def card_data():
+def car_data():
     return [
         Car(
             vin="KNAGM4A77D5316538",
@@ -109,17 +109,17 @@ class TestCarServiceScenarios:
         for car in car_data:
             service.add_car(car)
 
-    def test_add_new_car(self, tmpdir: str, card_data: list[Car], model_data: list[Model]) -> None:
+    def test_add_new_car(self, tmpdir: str, car_data: list[Car], model_data: list[Model]) -> None:
         service = CarService(tmpdir)
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
         assert True
 
-    def test_sell_car(self, tmpdir: str, card_data: list[Car], model_data: list[Model]) -> None:
+    def test_sell_car(self, tmpdir: str, car_data: list[Car], model_data: list[Model]) -> None:
         service = CarService(tmpdir)
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
         sale = Sale(
             sales_number="20240903#JM1BL1M58C1614725",
@@ -133,19 +133,19 @@ class TestCarServiceScenarios:
         assert res is not None
         assert res.status == CarStatus.sold
 
-    def test_list_cars_by_available_status(self, tmpdir: str, card_data: list[Car], model_data: list[Model]):
+    def test_list_cars_by_available_status(self, tmpdir: str, car_data: list[Car], model_data: list[Model]):
         service = CarService(tmpdir)
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
-        available_cars = [car for car in card_data if car.status == CarStatus.available]
+        available_cars = [car for car in car_data if car.status == CarStatus.available]
 
         assert service.get_cars(CarStatus.available) == available_cars
 
-    def test_list_full_info_by_vin(self, tmpdir: str, card_data: list[Car], model_data: list[Model]):
+    def test_list_full_info_by_vin(self, tmpdir: str, car_data: list[Car], model_data: list[Model]):
         service = CarService(tmpdir)
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
         full_info_no_sale = CarFullInfo(
             vin="KNAGM4A77D5316538",
@@ -182,7 +182,7 @@ class TestCarServiceScenarios:
 
         assert service.get_car_info("KNAGM4A77D5316538") == full_info_with_sale
 
-    def test_update_vin(self, tmpdir: str, card_data: list[Car], model_data: list[Model]):
+    def test_update_vin(self, tmpdir: str, car_data: list[Car], model_data: list[Model]):
         service = CarService(tmpdir)
 
         full_info_no_sale = CarFullInfo(
@@ -196,7 +196,7 @@ class TestCarServiceScenarios:
             sales_cost=None,
         )
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
         assert service.get_car_info("KNAGM4A77D5316538") == full_info_no_sale
         assert service.get_car_info("UPDGM4A77D5316538") is None
@@ -207,10 +207,10 @@ class TestCarServiceScenarios:
         assert service.get_car_info("UPDGM4A77D5316538") == full_info_no_sale
         assert service.get_car_info("KNAGM4A77D5316538") is None
 
-    def test_delete_sale(self, tmpdir: str, card_data: list[Car], model_data: list[Model]):
+    def test_delete_sale(self, tmpdir: str, car_data: list[Car], model_data: list[Model]):
         service = CarService(tmpdir)
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
         sale = Sale(
             sales_number="20240903#KNAGM4A77D5316538",
@@ -231,10 +231,10 @@ class TestCarServiceScenarios:
         assert car is not None
         assert car.status == CarStatus.available
 
-    def test_top_3_models_by_sales(self, tmpdir: str, card_data: list[Car], model_data: list[Model]):
+    def test_top_3_models_by_sales(self, tmpdir: str, car_data: list[Car], model_data: list[Model]):
         service = CarService(tmpdir)
 
-        self._fill_initial_data(service, card_data, model_data)
+        self._fill_initial_data(service, car_data, model_data)
 
         sales = [
             Sale(
