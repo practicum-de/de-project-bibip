@@ -139,6 +139,7 @@ class TestCarServiceScenarios:
         self._fill_initial_data(service, car_data, model_data)
 
         available_cars = [car for car in car_data if car.status == CarStatus.available]
+        available_cars = sorted(available_cars, key=lambda car: car.vin, reverse=False)
 
         assert service.get_cars(CarStatus.available) == available_cars
 
